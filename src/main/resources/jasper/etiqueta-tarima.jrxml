@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="etiqueta-tarima" pageWidth="432" pageHeight="288" orientation="Landscape" columnWidth="404" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14" uuid="4bc6694f-6df7-457f-9ee4-f56f6c0bfdce">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JavaBeanLabelFERBO.jrdax"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<subDataset name="dsBeanTarima" uuid="d6a60b0c-3ab2-402e-a676-268cf2321585">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JavaBeanLabelFERBO.jrdax"/>
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="cantidadTotal" class="java.lang.Integer">
+			<fieldDescription><![CDATA[cantidadTotal]]></fieldDescription>
+		</field>
+		<field name="pesoTotal" class="java.math.BigDecimal">
+			<fieldDescription><![CDATA[pesoTotal]]></fieldDescription>
+		</field>
+		<field name="mp" class="java.lang.String">
+			<fieldDescription><![CDATA[mp]]></fieldDescription>
+		</field>
+		<field name="sap" class="java.lang.String">
+			<fieldDescription><![CDATA[sap]]></fieldDescription>
+		</field>
+		<field name="idPartida" class="java.lang.Integer">
+			<fieldDescription><![CDATA[idPartida]]></fieldDescription>
+		</field>
+		<field name="pedimento" class="java.lang.String">
+			<fieldDescription><![CDATA[pedimento]]></fieldDescription>
+		</field>
+		<field name="lote" class="java.lang.String">
+			<fieldDescription><![CDATA[lote]]></fieldDescription>
+		</field>
+		<field name="unidadManejo" class="java.lang.String">
+			<fieldDescription><![CDATA[unidadManejo]]></fieldDescription>
+		</field>
+		<field name="planta" class="java.lang.String">
+			<fieldDescription><![CDATA[planta]]></fieldDescription>
+		</field>
+		<field name="nombrePlanta" class="java.lang.String">
+			<fieldDescription><![CDATA[nombrePlanta]]></fieldDescription>
+		</field>
+		<field name="nombreProducto" class="java.lang.String">
+			<fieldDescription><![CDATA[nombreProducto]]></fieldDescription>
+		</field>
+		<field name="caducidad" class="java.util.Date">
+			<fieldDescription><![CDATA[caducidad]]></fieldDescription>
+		</field>
+		<field name="fechaIngreso" class="java.util.Date">
+			<fieldDescription><![CDATA[fechaIngreso]]></fieldDescription>
+		</field>
+		<field name="folioCliente" class="java.lang.String">
+			<fieldDescription><![CDATA[folioCliente]]></fieldDescription>
+		</field>
+		<field name="idCliente" class="java.lang.Integer">
+			<fieldDescription><![CDATA[idCliente]]></fieldDescription>
+		</field>
+		<field name="nombreCliente" class="java.lang.String">
+			<fieldDescription><![CDATA[nombreCliente]]></fieldDescription>
+		</field>
+		<field name="camara" class="java.lang.String">
+			<fieldDescription><![CDATA[camara]]></fieldDescription>
+		</field>
+		<field name="folio" class="java.lang.Integer">
+			<fieldDescription><![CDATA[folio]]></fieldDescription>
+		</field>
+		<field name="nombreCamara" class="java.lang.String">
+			<fieldDescription><![CDATA[nombreCamara]]></fieldDescription>
+		</field>
+		<field name="po" class="java.lang.String">
+			<fieldDescription><![CDATA[po]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="partidaCve" class="java.lang.Integer"/>
+	<parameter name="logoPath" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+	cdd.FOLIO,
+	cdd.CTE_CVE,
+	c.CTE_NOMBRE,
+	cdd.FECHA_INGRESO,
+	cdd.folio_cliente,
+	p.PARTIDA_CVE,
+	prd.PRODUCTO_DS,
+	p.CANTIDAD_TOTAL,
+	udm.UNIDAD_DE_MANEJO_DS,
+	p.PESO_TOTAL,
+	cam.CAMARA_ABREV,
+	cam.CAMARA_DS,
+	plt.PLANTA_DS,
+	plt.planta_abrev,
+	dp.dtp_caducidad,
+	dp.dtp_lote,
+	dp.dtp_PO,
+	dp.dtp_MP,
+	dp.dtp_pedimento,
+	dp.dtp_SAP
+FROM CONSTANCIA_DE_DEPOSITO cdd
+INNER JOIN CLIENTE c ON cdd.CTE_CVE = c.CTE_CVE
+INNER JOIN PARTIDA p ON cdd.FOLIO = p.FOLIO
+INNER JOIN UNIDAD_DE_PRODUCTO udp ON p.UNIDAD_DE_PRODUCTO_CVE = udp.UNIDAD_DE_PRODUCTO_CVE
+INNER JOIN PRODUCTO prd ON udp.PRODUCTO_CVE = prd.PRODUCTO_CVE
+INNER JOIN UNIDAD_DE_MANEJO udm ON udp.UNIDAD_DE_MANEJO_CVE = udm.UNIDAD_DE_MANEJO_CVE 
+INNER JOIN CAMARA cam ON p.CAMARA_CVE = cam.CAMARA_CVE
+INNER JOIN PLANTA plt ON cam.PLANTA_CVE = plt.PLANTA_CVE
+INNER JOIN (
+	SELECT
+		tDP.DET_PART_CVE,
+		tDP.PARTIDA_CVE,
+		tDP.dtp_caducidad,
+		tDP.dtp_lote,
+		tDP.dtp_PO,
+		tDP.dtp_MP,
+		tDP.dtp_pedimento,
+		tDP.dtp_SAP
+	FROM [DBA].DETALLE_PARTIDA tDP
+	INNER JOIN (
+	SELECT
+		PARTIDA_CVE, MAX(DET_PART_CVE) AS DET_PART_CVE
+	FROM [DBA].DETALLE_PARTIDA
+	GROUP BY PARTIDA_CVE
+	) tMaxDP
+	ON tDP.PARTIDA_CVE = tMaxDP.PARTIDA_CVE AND tDP.DET_PART_CVE = tMaxDP.DET_PART_CVE
+) dp ON p.PARTIDA_CVE = dp.PARTIDA_CVE
+
+WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
+	</queryString>
+	<field name="cantidadTotal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cantidadTotal]]></fieldDescription>
+	</field>
+	<field name="pesoTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[pesoTotal]]></fieldDescription>
+	</field>
+	<field name="mp" class="java.lang.String">
+		<fieldDescription><![CDATA[mp]]></fieldDescription>
+	</field>
+	<field name="sap" class="java.lang.String">
+		<fieldDescription><![CDATA[sap]]></fieldDescription>
+	</field>
+	<field name="idPartida" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idPartida]]></fieldDescription>
+	</field>
+	<field name="pedimento" class="java.lang.String">
+		<fieldDescription><![CDATA[pedimento]]></fieldDescription>
+	</field>
+	<field name="lote" class="java.lang.String">
+		<fieldDescription><![CDATA[lote]]></fieldDescription>
+	</field>
+	<field name="unidadManejo" class="java.lang.String">
+		<fieldDescription><![CDATA[unidadManejo]]></fieldDescription>
+	</field>
+	<field name="planta" class="java.lang.String">
+		<fieldDescription><![CDATA[planta]]></fieldDescription>
+	</field>
+	<field name="nombrePlanta" class="java.lang.String">
+		<fieldDescription><![CDATA[nombrePlanta]]></fieldDescription>
+	</field>
+	<field name="nombreProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreProducto]]></fieldDescription>
+	</field>
+	<field name="caducidad" class="java.util.Date">
+		<fieldDescription><![CDATA[caducidad]]></fieldDescription>
+	</field>
+	<field name="fechaIngreso" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaIngreso]]></fieldDescription>
+	</field>
+	<field name="folioCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[folioCliente]]></fieldDescription>
+	</field>
+	<field name="idCliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idCliente]]></fieldDescription>
+	</field>
+	<field name="nombreCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreCliente]]></fieldDescription>
+	</field>
+	<field name="camara" class="java.lang.String">
+		<fieldDescription><![CDATA[camara]]></fieldDescription>
+	</field>
+	<field name="folio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[folio]]></fieldDescription>
+	</field>
+	<field name="nombreCamara" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreCamara]]></fieldDescription>
+	</field>
+	<field name="po" class="java.lang.String">
+		<fieldDescription><![CDATA[po]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="260" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="236" height="70" uuid="99038512-8c42-4baa-8461-a3fec023d12f"/>
+				<imageExpression><![CDATA[$P{logoPath}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="70" width="236" height="40" uuid="afebd43b-104a-4d7e-bba7-b90c253e6c13"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Monospaced" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="110" width="236" height="34" uuid="1127e45d-6f9a-4dd0-aea0-78060e61cd49"/>
+				<textElement verticalAlignment="Top">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreProducto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="65" y="204" width="100" height="14" uuid="9f57ff27-a94f-4f7d-98c8-6c24fde10506"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{caducidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="167" width="168" height="20" uuid="74b93fb8-eb55-4dcb-9d90-f0a370e09caa"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CONSTANCIA "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="204" width="65" height="14" uuid="ea5c073d-9e72-4b4d-8617-aa441311e732"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{caducidad} == null ? "" : "Caducidad "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="218" width="65" height="14" uuid="46640d6f-9c19-421f-992b-0bc72fd7a6ea"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{pedimento} == null ? "" : "Pedimento "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="65" y="218" width="100" height="14" uuid="08d2f00d-9353-434b-8b71-3a5c55af93aa"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{pedimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="63" y="145" width="104" height="20" uuid="79fc3910-1448-40b2-aed1-d4af8534110e"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaIngreso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="145" width="64" height="20" uuid="816e8867-d3f1-4470-8c8c-26336fc71af4"/>
+				<textElement textAlignment="Left">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Ingreso]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="236" y="218" width="168" height="42" uuid="b240c04f-1f4f-49ad-b9fc-7ddf4cb7eaae"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="true" checksumRequired="true" barHeight="39">
+					<jr:codeExpression><![CDATA[String.format("%012d", $F{idPartida})]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="65" y="232" width="100" height="14" uuid="fde9b47b-2680-4bea-8e35-dae63ffa015e"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{sap}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="232" width="65" height="14" uuid="418eebc6-d832-4f58-a3e6-0265267263c1"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{sap} == null ? "" : "Contenedor "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="65" y="246" width="100" height="14" uuid="78c7f088-87a8-4237-ac4e-c3db37eddc68"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="246" width="65" height="14" uuid="91fe9bed-c78c-4959-87a1-2ec0f1eea3d3"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA[$F{lote} == null ? "" : "Lote "]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="237" y="0" width="168" height="168" uuid="461a7862-34fc-408d-adaa-e7adb9941a9f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[$F{folioCliente} + "|" + $F{fechaIngreso}.toLocaleString() + "|" + $F{nombreProducto}+ "|Planta:" + $F{nombrePlanta} + "|Camara:" + $F{nombreCamara}]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="166" width="236" height="24" uuid="c81bd2c6-03db-49b2-ba9a-8c76097be311"/>
+				<textElement markup="styled">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Planta " + $F{nombrePlanta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="0" y="190" width="236" height="14" uuid="5e0d61dc-34aa-4f41-9656-9825a0d25eb6"/>
+				<textElement markup="styled"/>
+				<textFieldExpression><![CDATA["Cámara " + $F{nombreCamara}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="236" y="187" width="168" height="30" uuid="3fe9d7c4-80c9-4032-b422-aa629b9e5f43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folioCliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>
