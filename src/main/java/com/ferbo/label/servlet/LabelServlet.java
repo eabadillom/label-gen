@@ -42,7 +42,7 @@ public class LabelServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		this.doAction(request, response);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class LabelServlet extends HttpServlet {
 	}
 	
 	private void doAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String folioCliente = null;
+		String folioCliente = null;
 		
 		String jasperPath = "/jasper/etiqueta-tarima.jrxml";
 		String images = "/images/logo.png";
@@ -79,7 +79,9 @@ String folioCliente = null;
 			
 			String fileName = String.format("etiqueta_%s.pdf", folioCliente);
 			
-			String disposition = String.format("attachment; filename=\"%s\"", fileName);
+			//String disposition = String.format("attachment; filename=\"%s\"", fileName);
+			String disposition = String.format("inline; filename=\"%s\"", fileName);
+			
 			response.setHeader("Content-Disposition", disposition);
 			response.addHeader("Content-Disposition", disposition);
 			response.setContentType("application/pdf");
