@@ -15,15 +15,15 @@ import com.ferbo.inventario.model.Planta;
 import com.ferbo.inventario.model.Producto;
 import com.ferbo.inventario.model.UnidadManejo;
 import com.ferbo.inventario.model.UnidadProducto;
+import com.ferbo.label.dao.CamaraDAO;
 import com.ferbo.label.dao.ClienteDAO;
 import com.ferbo.label.dao.ConstanciaDepositoDAO;
-import com.ferbo.label.servlet.CamaraDAO;
-import com.ferbo.label.servlet.DetallePartidaDAO;
-import com.ferbo.label.servlet.PartidaDAO;
-import com.ferbo.label.servlet.PlantaDAO;
-import com.ferbo.label.servlet.ProductoDAO;
-import com.ferbo.label.servlet.UnidadManejoDAO;
-import com.ferbo.label.servlet.UnidadProductoDAO;
+import com.ferbo.label.dao.DetallePartidaDAO;
+import com.ferbo.label.dao.PartidaDAO;
+import com.ferbo.label.dao.PlantaDAO;
+import com.ferbo.label.dao.ProductoDAO;
+import com.ferbo.label.dao.UnidadManejoDAO;
+import com.ferbo.label.dao.UnidadProductoDAO;
 import com.ferbo.tools.DBConn;
 
 public class ConstanciaDepositoBL {
