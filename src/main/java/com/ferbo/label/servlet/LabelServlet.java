@@ -20,8 +20,10 @@ import com.ferbo.inventario.business.ConstanciaDepositoBL;
 import com.ferbo.inventario.business.TarimaBL;
 import com.ferbo.inventario.model.ConstanciaDeposito;
 import com.ferbo.inventario.model.Tarima;
+import com.ferbo.label.model.response.RespuestaSistema;
 import com.ferbo.tools.IOTool;
 import com.ferbo.tools.JasperReportTool;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class LabelServlet
@@ -49,7 +51,21 @@ public class LabelServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doAction(request, response);
+		RespuestaSistema respuesta = null;
+        Gson prettyGson   = null;
+        String jsonResponse = null;
+        String mensaje = null;
+        int httpStatus = -1;
+		
+		String authentication = request.getHeader("Authorization");
+		
+		try {
+			
+		} catch(Exception ex) {
+			
+		} finally {
+			
+		}
 	}
 	
 	private void doAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

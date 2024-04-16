@@ -1,4 +1,4 @@
-package com.ferbo.label.servlet;
+package com.ferbo.label.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ferbo.inventario.model.DetallePartida;
-import com.ferbo.label.dao.DAO;
-import com.ferbo.label.dao.IDAO;
 
 public class DetallePartidaDAO extends DAO implements IDAO<DetallePartida> {
 	

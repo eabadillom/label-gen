@@ -151,6 +151,9 @@ WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
 	<field name="planta" class="java.lang.String">
 		<fieldDescription><![CDATA[planta]]></fieldDescription>
 	</field>
+	<field name="idBarCode" class="java.lang.String">
+		<fieldDescription><![CDATA[idBarCode]]></fieldDescription>
+	</field>
 	<field name="nombrePlanta" class="java.lang.String">
 		<fieldDescription><![CDATA[nombrePlanta]]></fieldDescription>
 	</field>
@@ -229,7 +232,7 @@ WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
 			</textField>
 			<textField>
 				<reportElement x="236" y="167" width="168" height="20" uuid="74b93fb8-eb55-4dcb-9d90-f0a370e09caa"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CONSTANCIA "]]></textFieldExpression>
@@ -266,7 +269,7 @@ WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
 			<componentElement>
 				<reportElement x="236" y="218" width="168" height="42" uuid="b240c04f-1f4f-49ad-b9fc-7ddf4cb7eaae"/>
 				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="true" checksumRequired="true" barHeight="39">
-					<jr:codeExpression><![CDATA[String.format("%012d", $F{idPartida})]]></jr:codeExpression>
+					<jr:codeExpression><![CDATA[$F{idBarCode}]]></jr:codeExpression>
 				</jr:barbecue>
 			</componentElement>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
@@ -293,8 +296,9 @@ WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
 				<reportElement x="237" y="0" width="168" height="168" uuid="461a7862-34fc-408d-adaa-e7adb9941a9f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.margin" value="px"/>
 				</reportElement>
-				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" margin="0">
 					<jr:codeExpression><![CDATA[$F{folioCliente} + "|" + $F{fechaIngreso}.toLocaleString() + "|" + $F{nombreProducto}+ "|Planta:" + $F{nombrePlanta} + "|Camara:" + $F{nombreCamara}]]></jr:codeExpression>
 				</jr:QRCode>
 			</componentElement>
@@ -313,7 +317,7 @@ WHERE p.PARTIDA_CVE = $P{partidaCve}]]>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="236" y="187" width="168" height="30" uuid="3fe9d7c4-80c9-4032-b422-aa629b9e5f43"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
-					<font size="24" isBold="true"/>
+					<font size="23" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{folioCliente}]]></textFieldExpression>
 			</textField>
