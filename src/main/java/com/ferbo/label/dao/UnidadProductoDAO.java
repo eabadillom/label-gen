@@ -1,4 +1,4 @@
-package com.ferbo.label.servlet;
+package com.ferbo.label.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ferbo.inventario.model.UnidadProducto;
-import com.ferbo.label.dao.DAO;
-import com.ferbo.label.dao.IDAO;
 
 public class UnidadProductoDAO extends DAO implements IDAO<UnidadProducto> {
 	

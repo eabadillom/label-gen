@@ -11,6 +11,7 @@ public class Tarima {
 	private Date fechaIngreso;
 	private String folioCliente;
 	private Integer idPartida;
+	private String idBarCode;
 	private String nombreProducto;
 	private Integer cantidadTotal;
 	private String unidadManejo;
@@ -146,12 +147,18 @@ public class Tarima {
 	public void setSap(String sap) {
 		this.sap = sap;
 	}
+	public String getIdBarCode() {
+		return idBarCode;
+	}
+	public void setIdBarCode(String idBarCode) {
+		this.idBarCode = idBarCode;
+	}
 	@Override
 	public String toString() {
 		return "{\"folio\":\"" + folio + "\", \"idCliente\":\"" + idCliente + "\", \"nombreCliente\":\"" + nombreCliente
 				+ "\", \"fechaIngreso\":\"" + fechaIngreso + "\", \"folioCliente\":\"" + folioCliente
-				+ "\", \"idPartida\":\"" + idPartida + "\", \"nombreProducto\":\"" + nombreProducto
-				+ "\", \"cantidadTotal\":\"" + cantidadTotal + "\", \"unidadManejo\":\"" + unidadManejo
+				+ "\", \"idPartida\":\"" + idPartida + "\", \"idBarCode\":\"" + idBarCode + "\", \"nombreProducto\":\""
+				+ nombreProducto + "\", \"cantidadTotal\":\"" + cantidadTotal + "\", \"unidadManejo\":\"" + unidadManejo
 				+ "\", \"pesoTotal\":\"" + pesoTotal + "\", \"camara\":\"" + camara + "\", \"nombreCamara\":\""
 				+ nombreCamara + "\", \"planta\":\"" + planta + "\", \"nombrePlanta\":\"" + nombrePlanta
 				+ "\", \"caducidad\":\"" + caducidad + "\", \"lote\":\"" + lote + "\", \"po\":\"" + po + "\", \"mp\":\""
